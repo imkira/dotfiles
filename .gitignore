@@ -1,0 +1,18 @@
+# ignore everything
+*
+
+# except:
+!.gitignore
+!.gitmodules
+!.curlrc
+!.irbrc
+!.oh-my-zsh
+!.vimrc
+!.vim
+!.vim/*
+!.vim/undo/.gitkeep
+!.vim/bundle/vundle
+!.zshrc
+!.zsh
+!.zsh/*
+!.zsh/plugins/zsh-completions
