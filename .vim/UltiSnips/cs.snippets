@@ -1,0 +1,64 @@
+snippet ns "namespace ..." 
+namespace ${1:NamespaceName}
+{
+}
+endsnippet
+
+snippet cl "public class ..."
+public class ${1:ClassName}
+{
+  public $1()
+  {
+  }
+}
+endsnippet
+
+snippet getter "getter"
+public ${1:propType} ${2:PropName}
+{
+  get
+  {
+    return _${2/./\l$0/};
+  }
+}
+endsnippet
+
+snippet setter "setter"
+public ${1:propType} ${2:PropName}
+{
+  set
+  {
+    _${2/./\l$0/} = value;
+  }
+}
+endsnippet
+
+snippet ///summary "/// <summary>description</summary>"
+/// <summary>${1:description}.</summary>
+endsnippet
+
+snippet ///value "/// <value>description</value>"
+/// <value>${1:Value description}.</value>
+endsnippet
+
+snippet ///param "/// <param name=...>description</param>"
+/// <param name="${1:paramName}">${2:Parameter description}.</param>
+endsnippet
+
+snippet ///returns "/// <returns>description</returns>"
+/// <returns>${1:Return description}.</returns>
+endsnippet
+
+snippet prop "getter and setter"
+public ${1:propType} ${2:PropName}
+{
+  get
+  {
+    return _${2/./\l$0/};
+  }
+  set
+  {
+    _${2/./\l$0/} = value;
+  }
+}
+endsnippet

@@ -29,6 +29,7 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-endwise'
 Bundle 'vim-scripts/taglist.vim'
+Bundle 'vim-scripts/Rename.git'
 Bundle 'majutsushi/tagbar'
 Bundle 'sjl/gundo.vim'
 
@@ -97,6 +98,9 @@ set undoreload=10000
 " show list rather than just completing
 set wildmenu
 set wildmode=list:longest,full
+
+" ignore certain patterns while completing paths
+set wildignore=*.bak,*.swp,*.o,*.class,*.meta
 
 """"""""""""""""""""""""""""""""""""""
 " VISUAL HELPERS
@@ -204,7 +208,7 @@ set autoindent
 let mapleader=","
 let g:mapleader=","
 
-" easier move to window mapping
+" easier movement between windows
 noremap <C-Right> <C-w>l
 noremap <C-l> <C-w>l
 noremap <C-Left> <C-w>h
@@ -213,6 +217,10 @@ noremap <C-Up> <C-w>k
 noremap <C-k> <C-w>k
 noremap <C-Down> <C-w>j
 noremap <C-j> <C-w>j
+
+" easier movement between tabs
+noremap <D-A-Left> :tabprev<CR>
+noremap <D-A-Right> :tabnext<CR>
 
 " move within wrapped lines
 nnoremap j gj

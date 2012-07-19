@@ -12,6 +12,7 @@
 !.vim/*
 !.vim/undo/.gitkeep
 !.vim/bundle/vundle
+!.vim/UltiSnips/*
 !.zshrc
 !.zsh
 !.zsh/*
