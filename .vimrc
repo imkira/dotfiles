@@ -51,7 +51,7 @@ Bundle 'timcharper/textile.vim'
 """"""""""""""""""""""""""""""""""""""
 
 " load ftplugins
-filetype plugin on 
+filetype plugin on
 
 " load indent files
 filetype indent on
@@ -138,6 +138,14 @@ set showbreak==>
 " automatically show matching brackets. works like it does in bbedit.
 set showmatch
 
+" make sure extra white space color is always set
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+highlight ExtraWhitespace ctermbg=red guibg=red
+
+" highlight tabs that are not at the start of a line, spaces before a tab,
+" and trailing whitespace, except when typing at the end of a line.
+match ExtraWhitespace /[^\t]\zs\t\+\| \+\ze\t\|\s\+\%#\@<!$/
+
 """"""""""""""""""""""""""""""""""""""
 " SEARCHING
 """"""""""""""""""""""""""""""""""""""
@@ -172,7 +180,6 @@ if has('gui_running')
   if has('gui_macvim')
     set transparency=02
     set antialias
-    set fuopt=maxhorz,maxhorz
     set fu
   end
 
@@ -181,7 +188,7 @@ if has('gui_running')
 end
 
 " code folding
-set foldmethod=indent 
+set foldmethod=indent
 
 " highlight current column/row
 set cul
@@ -229,7 +236,7 @@ nnoremap k gk
 " clear last hlsearch
 nmap <silent> <Leader>/ :nohlsearch<CR>
 
-" reformat all file and center on the cursor 
+" reformat all file and center on the cursor
 noremap <Leader>f mZgg=G`Zzz
 
 """"""""""""""""""""""""""""""""""""""
