@@ -10,6 +10,9 @@ plugins=(vi-mode git brew rvm npm ruby history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 
+# completely disable autocorrection
+unsetopt correct_all
+
 ZSH_FILES=$HOME/.zsh
 
 # preconfiguration
