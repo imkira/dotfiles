@@ -13,7 +13,9 @@
 !.vim/undo/.gitkeep
 !.vim/bundle/vundle
 !.vim/UltiSnips/*
+!.vim/UltiSnips/**/*
 !.zshrc
 !.zsh
 !.zsh/*
+!.zsh/**/*
 !.zsh/plugins/zsh-completions
