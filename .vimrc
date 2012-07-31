@@ -144,7 +144,11 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 
 " highlight tabs that are not at the start of a line, spaces before a tab,
 " and trailing whitespace, except when typing at the end of a line.
-match ExtraWhitespace /[^\t]\zs\t\+\| \+\ze\t\|\s\+\%#\@<!$/
+match ExtraWhitespace /[^\t]\zs\t\+\| \+\ze\t\|\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /[^\t]\zs\t\+\| \+\ze\t\|\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /[^\t]\zs\t\+\| \+\ze\t\|\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /[^\t]\zs\t\+\| \+\ze\t\|\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 """"""""""""""""""""""""""""""""""""""
 " SEARCHING
