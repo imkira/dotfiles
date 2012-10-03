@@ -45,6 +45,7 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'itspriddle/vim-jquery'
 Bundle 'tpope/vim-markdown'
 Bundle 'timcharper/textile.vim'
+Bundle 'vim-scripts/JSON.vim'
 
 """"""""""""""""""""""""""""""""""""""
 " GENERAL
@@ -239,6 +240,10 @@ nnoremap k gk
 
 " clear last hlsearch
 nmap <silent> <Leader>/ :nohlsearch<CR>
+
+" pretty print json
+noremap <silent> <leader>jt <Esc>:%!jshon<CR>
+vnoremap <silent> <leader>jt :!jshon<CR>
 
 " reformat all file and center on the cursor
 noremap <Leader>f mZgg=G`Zzz
