@@ -32,6 +32,8 @@ Bundle 'vim-scripts/taglist.vim'
 Bundle 'vim-scripts/Rename.git'
 Bundle 'majutsushi/tagbar'
 Bundle 'sjl/gundo.vim'
+Bundle 'vim-scripts/FencView.vim'
+Bundle 'vim-scripts/AutoFenc.vim'
 
 Bundle 'tpope/vim-git'
 Bundle 'vim-ruby/vim-ruby'
