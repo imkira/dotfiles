@@ -3,6 +3,7 @@
 
 # except:
 !.gitignore
+!.gitconfig
 !.gitmodules
 !.curlrc
 !.irbrc
