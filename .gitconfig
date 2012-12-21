@@ -1,17 +1,19 @@
 [user]
-	name = Mário Freitas
-	email = imkira@gmail.com
+  name = Mário Freitas
+  email = imkira@gmail.com
 [color]
-	branch = auto
-	diff = auto
-	interactive = auto
-	status = auto
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
 [i18n]
-	commitEncoding = utf8
-	logOutputEncoding = utf8
+  commitEncoding = utf8
+  logOutputEncoding = utf8
 [alias]
   st = status
   br = branch
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   type = cat-file -t
   dump = cat-file -p
+[push]
+  default = simple
