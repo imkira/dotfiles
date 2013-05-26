@@ -1,5 +1,6 @@
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="robbyrussell"
+ZSH_CUSTOM=$HOME/.zsh/custom
+ZSH_THEME="imkira"
 
 DISABLE_AUTO_UPDATE="false"
 DISABLE_LS_COLORS="false"
