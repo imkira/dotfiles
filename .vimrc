@@ -34,8 +34,7 @@ Bundle 'majutsushi/tagbar'
 Bundle 'sjl/gundo.vim'
 Bundle 'vim-scripts/FencView.vim'
 Bundle 'vim-scripts/AutoFenc.vim'
-Bundle 'xolox/vim-misc.git'
-Bundle 'xolox/vim-session'
+Bundle 'tpope/vim-obsession'
 Bundle 'derekwyatt/vim-fswitch'
 
 Bundle 'tpope/vim-git'
@@ -158,6 +157,36 @@ set directory+=.
 
 " viminfo
 set viminfo+=n~/.vim/viminfo
+
+" sessions
+set sessionoptions=blank,buffers,folds,curdir,tabpages
+
+if isdirectory($HOME . '/.vim/sessions') == 0
+  :silent !mkdir -p ~/.vim/sessions >/dev/null 2>&1
+endif
+
+function! FindProjectSessionName()
+  let l:path = finddir('.git', getcwd() . ';')
+  if empty(l:path)
+    let l:path = 'default'
+  else
+    let l:path = fnamemodify(l:path, ':p:h:h:t') . fnamemodify(l:path, ':p:h')
+  endif
+  return substitute(l:path, '/', '%', 'g')
+endfunction
+
+function! RestoreSession(name)
+  let l:dir = $HOME . '/.vim/sessions/'
+  let l:session = dir . a:name
+  let l:escaped_session = dir . escape(a:name, '%')
+  let g:has_session = filereadable(l:session)
+  if g:has_session
+    execute 'source ' . l:escaped_session
+  end
+  execute 'Obsess ' . l:escaped_session
+endfunction
+
+autocmd VimEnter * nested if !argc() | :call RestoreSession(FindProjectSessionName()) | endif
 
 " show list rather than just completing
 set wildmenu
@@ -312,17 +341,6 @@ vnoremap <silent> <leader>jt :!jshon<CR>
 noremap <Leader>f mZgg=G`Zzz
 
 """"""""""""""""""""""""""""""""""""""
-" sessions
-""""""""""""""""""""""""""""""""""""""
-
-set sessionoptions=blank,buffers,folds,curdir,tabpages
-let g:session_autoload = 'yes'
-let g:session_default_to_last = 1
-let g:session_verbose_messages = 1
-let g:session_autosave = 'yes'
-let g:session_autosave_periodic = 5
-
-""""""""""""""""""""""""""""""""""""""
 " SuperTab
 """"""""""""""""""""""""""""""""""""""
 
@@ -355,6 +373,9 @@ nnoremap <F4> :GundoToggle<CR>
 """"""""""""""""""""""""""""""""""""""
 " NERDTree
 """"""""""""""""""""""""""""""""""""""
+
+" open NERDTree when vim starts up if no files were specified
+autocmd vimenter * if !argc() && !g:has_session | NERDTree | endif
 
 " toggle NERDTree window
 noremap <F2> :NERDTreeToggle<CR>
