@@ -34,6 +34,9 @@ Bundle 'majutsushi/tagbar'
 Bundle 'sjl/gundo.vim'
 Bundle 'vim-scripts/FencView.vim'
 Bundle 'vim-scripts/AutoFenc.vim'
+Bundle 'xolox/vim-misc.git'
+Bundle 'xolox/vim-session'
+Bundle 'derekwyatt/vim-fswitch'
 
 Bundle 'tpope/vim-git'
 Bundle 'vim-ruby/vim-ruby'
@@ -43,11 +46,13 @@ Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-haml'
 Bundle 'othree/html5.vim'
 Bundle 'pangloss/vim-javascript'
+Bundle 'briancollins/vim-jst'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'itspriddle/vim-jquery'
 Bundle 'tpope/vim-markdown'
 Bundle 'timcharper/textile.vim'
 Bundle 'vim-scripts/JSON.vim'
+Bundle 'uarun/vim-protobuf'
 
 """"""""""""""""""""""""""""""""""""""
 " GENERAL
@@ -61,10 +66,6 @@ filetype indent on
 
 " utf8
 set encoding=utf-8
-
-" don't save backups
-set nobackup
-set noswapfile
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -92,11 +93,71 @@ set switchbuf=useopen
 " line break for long lines
 set wrap linebreak nolist
 
+" backups
+if isdirectory($HOME . '/.vim/backup') == 0
+  :silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
+endif
+set backupdir-=.
+set backupdir+=.
+set backupdir-=~/
+set backupdir^=~/.vim/backup/
+set backupdir^=./.vim-backup/
+set backup
+set backupskip+=/private/tmp/*
+
+function! s:RemoveOldBackups(maxbackups)
+  let l:pattern = '[0-9]{4}_[0-9]{2}_[0-9]{2}_[0-9]{2}~$'
+  let l:dir = substitute(expand('%:p:h'), '/', '%', 'g')
+  let l:suffix = l:dir . '%'
+  let l:basename = expand('%:t')
+  let l:escaped_path = substitute(l:basename . l:suffix, '[\.\^\$\*\+\?\(\)\[\{\\]', '\\\0', 'g')
+  let l:find_regex = '^(.\/)?' . l:escaped_path . l:pattern
+  let l:backupdirs = split(&backupdir,'\s*,\s*')
+  for l:backupdir in l:backupdirs
+    if l:backupdir[0] == '.'
+      let l:backupdir = expand('%:p:h') . '/' . l:backupdir
+    endif
+    if !empty(l:backupdir) && isdirectory(l:backupdir)
+      call system('cd ' . shellescape(l:backupdir) .
+        \ ' && find -E . -maxdepth 1 -regex ' .
+        \ shellescape(l:find_regex) .
+        \ ' 2>/dev/null | sort -ru | tail +'
+        \ . (a:maxbackups + 1) . ' | xargs rm -f')
+    endif
+  endfor
+endfunction
+
+function! s:SetBackupExtension()
+  let l:time = strftime("%Y_%m_%d_%H")
+  let l:dir = substitute(expand('%:p:h'), '/', '%', 'g')
+  let l:suffix = l:dir . '%'
+  let &backupext = l:suffix . l:time . '~'
+endfunction
+
+autocmd BufWritePre * call s:SetBackupExtension()
+autocmd BufWritePost * call s:RemoveOldBackups(12)
+
 " undo
-set undodir=~/.vim/undo
+if isdirectory($HOME . '/.vim/undo') == 0
+  :silent !mkdir -p ~/.vim/undo >/dev/null 2>&1
+endif
+set undodir=./.vim-undo
+set undodir+=~/.vim/undo
 set undofile
-set undolevels=1000
+set undolevels=10000
 set undoreload=10000
+
+" swap
+if isdirectory($HOME . '/.vim/swap') == 0
+  :silent !mkdir -p ~/.vim/swap >/dev/null 2>&1
+endif
+set directory=./.vim-swap
+set directory+=~/.vim/swap
+set directory+=~/tmp
+set directory+=.
+
+" viminfo
+set viminfo+=n~/.vim/viminfo
 
 " show list rather than just completing
 set wildmenu
@@ -251,6 +312,17 @@ vnoremap <silent> <leader>jt :!jshon<CR>
 noremap <Leader>f mZgg=G`Zzz
 
 """"""""""""""""""""""""""""""""""""""
+" sessions
+""""""""""""""""""""""""""""""""""""""
+
+set sessionoptions=blank,buffers,folds,curdir,tabpages
+let g:session_autoload = 'yes'
+let g:session_default_to_last = 1
+let g:session_verbose_messages = 1
+let g:session_autosave = 'yes'
+let g:session_autosave_periodic = 5
+
+""""""""""""""""""""""""""""""""""""""
 " SuperTab
 """"""""""""""""""""""""""""""""""""""
 
@@ -284,9 +356,6 @@ nnoremap <F4> :GundoToggle<CR>
 " NERDTree
 """"""""""""""""""""""""""""""""""""""
 
-" open NERDTree when vim starts up if no files were specified
-autocmd vimenter * if !argc() | NERDTree | endif
-
 " toggle NERDTree window
 noremap <F2> :NERDTreeToggle<CR>
 
@@ -319,3 +388,9 @@ let g:tagbar_foldlevel = 5
 let g:tagbar_autoshowtag = 1
 
 noremap <F3> :TagbarToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""
+" FSwitch
+""""""""""""""""""""""""""""""""""""""
+
+nmap <silent> <Leader>h :FSHere<CR>

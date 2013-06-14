@@ -10,9 +10,6 @@
 !.oh-my-zsh
 !.pythonrc.py
 !.vimrc
-!.vim/.
-!.vim/*
-!.vim/undo/.gitkeep
 !.vim/bundle/vundle
 !.vim/UltiSnips
 !.zshrc
