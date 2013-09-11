@@ -92,6 +92,9 @@ set switchbuf=useopen
 " line break for long lines
 set wrap linebreak nolist
 
+" keep this much number of commands in history
+set history=1000
+
 " backups
 if isdirectory($HOME . '/.vim/backup') == 0
   :silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
@@ -255,6 +258,9 @@ set incsearch
 
 " ignore case when searching
 set ignorecase
+
+" continue search at top/bottom of buffer
+set wrapscan
 
 """"""""""""""""""""""""""""""""""""""
 " VISUAL ASPECT
