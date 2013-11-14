@@ -357,10 +357,11 @@ let g:supertabbContextDefaultCompletionType = "<c-x><c-o>"
 " Ctrlp
 """"""""""""""""""""""""""""""""""""""
 
+let g:ctrlp_max_files=0
 let g:ctrlp_use_caching = 0
 let g:ctrlp_working_path_mode = 2
 let g:ctrlp_dotfiles = 1
-let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn|\.meta$'
 let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_root_markers = ['.git', '.hg', '.svn']
 
