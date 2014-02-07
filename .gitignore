@@ -15,3 +15,4 @@
 !.zshrc
 !.zsh
 !.zsh/plugins/zsh-completions
+!.tmux.conf
