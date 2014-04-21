@@ -7,7 +7,7 @@ DISABLE_LS_COLORS="false"
 DISABLE_AUTO_TITLE="false"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(vi-mode git git-extras brew rvm npm ruby bundler node knife tmuxinator cap history-substring-search autojump wd vagrant web-search osx terminalapp catimg)
+plugins=(vi-mode git git-extras git-flow brew rvm npm ruby bundler node knife tmuxinator cap history-substring-search autojump wd vagrant web-search osx terminalapp catimg)
 
 source $ZSH/oh-my-zsh.sh
 
