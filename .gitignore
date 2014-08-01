@@ -9,6 +9,7 @@
 !.irbrc
 !.oh-my-zsh
 !.pythonrc.py
+!.slate
 !.vimrc
 !.vim/bundle/vundle
 !.vim/UltiSnips
