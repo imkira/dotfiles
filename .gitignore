@@ -1,19 +1,18 @@
 # ignore everything
-*
+/*
 
 # except:
-!.gitignore
-!.gitconfig
-!.gitmodules
-!.curlrc
-!.irbrc
-!.oh-my-zsh
-!.pythonrc.py
-!.slate
-!.vimrc
-!.vim/bundle/vundle
-!.vim/UltiSnips
-!.zshrc
-!.zsh
-!.zsh/plugins/zsh-completions
-!.tmux.conf
+!/.gitignore
+!/.gitconfig
+!/.gitmodules
+!/.curlrc
+!/.irbrc
+!/.oh-my-zsh
+!/.pythonrc.py
+!/.slate
+!/.tmux.conf
+!/.vimrc
+!/.vim/bundle/vundle
+!/.vim/UltiSnips
+!/.zsh
+!/.zshrc
