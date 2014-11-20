@@ -16,8 +16,8 @@ Bundle 'gmarik/vundle'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'guns/xterm-color-table.vim'
 
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'SirVer/ultisnips'
-Bundle 'ervandew/supertab'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
@@ -294,8 +294,14 @@ end
 " code folding
 set foldmethod=indent
 
+" expand folds when opening files
+au BufRead * normal zR
+
 " highlight current column/row
 set cul
+
+" disable scratch window
+set completeopt-=preview
 
 """"""""""""""""""""""""""""""""""""""
 " SPACES/TABS/INDENTATION
@@ -315,44 +321,38 @@ set autoindent
 " KEY MAPPING
 """"""""""""""""""""""""""""""""""""""
 
-" define global map leader
+" define leaders
 let mapleader=","
 let g:mapleader=","
+let maplocalleader="\\"
 
 " easier movement between windows
-noremap <C-Right> <C-w>l
-noremap <C-l> <C-w>l
-noremap <C-Left> <C-w>h
-noremap <C-h> <C-w>h
-noremap <C-Up> <C-w>k
-noremap <C-k> <C-w>k
-noremap <C-Down> <C-w>j
-noremap <C-j> <C-w>j
+map <C-Right> <C-w>l
+map <C-l> <C-w>l
+map <C-Left> <C-w>h
+map <C-h> <C-w>h
+map <C-Up> <C-w>k
+map <C-k> <C-w>k
+map <C-Down> <C-w>j
+map <C-j> <C-w>j
 
 " easier movement between tabs
-noremap <D-A-Left> :tabprev<CR>
-noremap <D-A-Right> :tabnext<CR>
+map <D-A-Left> :tabprev<CR>
+map <D-A-Right> :tabnext<CR>
 
 " move within wrapped lines
-nnoremap j gj
-nnoremap k gk
+nmap j gj
+nmap k gk
 
 " clear last hlsearch
 nmap <silent> <Leader>/ :nohlsearch<CR>
 
 " pretty print json
-noremap <silent> <leader>jt <Esc>:%!jshon<CR>
-vnoremap <silent> <leader>jt :!jshon<CR>
+map <silent> <leader>jt <Esc>:%!jshon<CR>
+vmap <silent> <leader>jt :!jshon<CR>
 
 " reformat all file and center on the cursor
-noremap <Leader>f mZgg=G`Zzz
-
-""""""""""""""""""""""""""""""""""""""
-" SuperTab
-""""""""""""""""""""""""""""""""""""""
-
-let g:SuperTabDefaultCompletionType = "context"
-let g:supertabbContextDefaultCompletionType = "<c-x><c-o>"
+map <Leader>f mZgg=G`Zzz
 
 """"""""""""""""""""""""""""""""""""""
 " Ctrlp
@@ -395,6 +395,46 @@ noremap <F2> :NERDTreeToggle<CR>
 " toggle comment
 map <Leader># <plug>NERDCommenterToggle
 
+
+""""""""""""""""""""""""""""""""""""""
+" syntastic
+""""""""""""""""""""""""""""""""""""""
+
+" disable checkers for go
+let g:syntastic_go_checkers = []
+
+""""""""""""""""""""""""""""""""""""""
+" YouCompleteMe
+""""""""""""""""""""""""""""""""""""""
+
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_complete_in_comments = 1
+
+""""""""""""""""""""""""""""""""""""""
+" UltiSnips
+""""""""""""""""""""""""""""""""""""""
+
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+function! g:UltiSnips_Complete()
+    call UltiSnips#ExpandSnippet()
+    if g:ulti_expand_res == 0
+        if pumvisible()
+            return "\<C-n>"
+        else
+            call UltiSnips#JumpForwards()
+            if g:ulti_jump_forwards_res == 0
+               return "\<TAB>"
+            endif
+        endif
+    endif
+    return ""
+endfunction
+
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+
 """"""""""""""""""""""""""""""""""""""
 " ctags
 """"""""""""""""""""""""""""""""""""""
@@ -428,14 +468,4 @@ nmap <silent> <Leader>h :FSHere<CR>
 " vim-go
 """"""""""""""""""""""""""""""""""""""
 
-au FileType go nmap <Leader>i <Plug>(go-info)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap gd <Plug>(go-def)
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+let g:go_bin_path = $GOPATH . '/bin'
