@@ -53,6 +53,7 @@ Bundle 'timcharper/textile.vim'
 Bundle 'vim-scripts/JSON.vim'
 Bundle 'uarun/vim-protobuf'
 Bundle 'fatih/vim-go'
+Bundle 'vim-scripts/vim-terraform'
 
 """"""""""""""""""""""""""""""""""""""
 " GENERAL
