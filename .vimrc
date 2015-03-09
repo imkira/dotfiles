@@ -470,3 +470,4 @@ nmap <silent> <Leader>h :FSHere<CR>
 """"""""""""""""""""""""""""""""""""""
 
 let g:go_bin_path = $GOPATH . '/bin'
+let g:go_fmt_command = 'goimports'
