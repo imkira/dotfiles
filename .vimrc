@@ -36,6 +36,7 @@ Bundle 'vim-scripts/FencView.vim'
 Bundle 'vim-scripts/AutoFenc.vim'
 Bundle 'tpope/vim-obsession'
 Bundle 'derekwyatt/vim-fswitch'
+Bundle 'godlygeek/tabular'
 
 Bundle 'tpope/vim-git'
 Bundle 'vim-ruby/vim-ruby'
