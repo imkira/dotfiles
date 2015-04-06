@@ -1,64 +1,64 @@
 """"""""""""""""""""""""""""""""""""""
-" VUNDLE
+" Plugins
 """"""""""""""""""""""""""""""""""""""
 
-" use Vim settings
-set nocompatible
+call plug#begin('~/.vim/plugged')
 
-" enable vundle
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+Plug 'altercation/vim-colors-solarized'
+Plug 'guns/xterm-color-table.vim'
 
-" let vundle manage itself
-Bundle 'gmarik/vundle'
+Plug 'Valloric/YouCompleteMe'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'mileszs/ack.vim'
+Plug 'scrooloose/syntastic'
+Plug 'Lokaltog/vim-powerline'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'vim-scripts/taglist.vim'
+Plug 'vim-scripts/Rename'
+Plug 'majutsushi/tagbar'
+Plug 'sjl/gundo.vim'
+Plug 'vim-scripts/FencView.vim'
+Plug 'vim-scripts/AutoFenc.vim'
+Plug 'tpope/vim-obsession'
+Plug 'derekwyatt/vim-fswitch'
+Plug 'godlygeek/tabular'
 
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'guns/xterm-color-table.vim'
+Plug 'tpope/vim-git'
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-cucumber'
+Plug 'tpope/vim-haml'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'briancollins/vim-jst'
+Plug 'kchmck/vim-coffee-script'
+Plug 'itspriddle/vim-jquery'
+Plug 'tpope/vim-markdown'
+Plug 'timcharper/textile.vim'
+Plug 'vim-scripts/JSON.vim'
+Plug 'uarun/vim-protobuf'
+Plug 'fatih/vim-go'
+Plug 'vim-scripts/vim-terraform'
 
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'SirVer/ultisnips'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'mileszs/ack.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-endwise'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'vim-scripts/Rename.git'
-Bundle 'majutsushi/tagbar'
-Bundle 'sjl/gundo.vim'
-Bundle 'vim-scripts/FencView.vim'
-Bundle 'vim-scripts/AutoFenc.vim'
-Bundle 'tpope/vim-obsession'
-Bundle 'derekwyatt/vim-fswitch'
-Bundle 'godlygeek/tabular'
-
-Bundle 'tpope/vim-git'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-bundler'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-haml'
-Bundle 'othree/html5.vim'
-Bundle 'pangloss/vim-javascript'
-Bundle 'briancollins/vim-jst'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'itspriddle/vim-jquery'
-Bundle 'tpope/vim-markdown'
-Bundle 'timcharper/textile.vim'
-Bundle 'vim-scripts/JSON.vim'
-Bundle 'uarun/vim-protobuf'
-Bundle 'fatih/vim-go'
-Bundle 'vim-scripts/vim-terraform'
+call plug#end()
 
 """"""""""""""""""""""""""""""""""""""
 " GENERAL
 """"""""""""""""""""""""""""""""""""""
+
+" vi-improved
+set nocompatible
+
+" required
+filetype off
 
 " load ftplugins
 filetype plugin on
@@ -409,33 +409,51 @@ let g:syntastic_go_checkers = []
 " YouCompleteMe
 """"""""""""""""""""""""""""""""""""""
 
+let g:ycm_use_ultisnips_completer = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_complete_in_comments = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_min_num_of_chars_for_completion = 1
 
 """"""""""""""""""""""""""""""""""""""
 " UltiSnips
 """"""""""""""""""""""""""""""""""""""
 
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
 function! g:UltiSnips_Complete()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips#JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
-            endif
-        endif
+  call UltiSnips#ExpandSnippet()
+  if g:ulti_expand_res == 0
+    if pumvisible()
+      return "\<C-n>"
+    else
+      call UltiSnips#JumpForwards()
+      if g:ulti_jump_forwards_res == 0
+        return "\<TAB>"
+      endif
     endif
-    return ""
+  endif
+  return ""
 endfunction
 
+function! g:UltiSnips_Reverse()
+  call UltiSnips#JumpBackwards()
+  if g:ulti_jump_backwards_res == 0
+    return "\<C-P>"
+  endif
+
+  return ""
+endfunction
+
+
+if !exists("g:UltiSnipsJumpForwardTrigger")
+  let g:UltiSnipsJumpForwardTrigger = "<tab>"
+endif
+
+if !exists("g:UltiSnipsJumpBackwardTrigger")
+  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+endif
+
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 
 """"""""""""""""""""""""""""""""""""""
 " ctags
