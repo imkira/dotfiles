@@ -15,7 +15,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/syntastic'
-Plug 'Lokaltog/vim-powerline'
+Plug 'Lokaltog/vim-powerline', {'branch': 'develop'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
