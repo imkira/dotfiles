@@ -14,6 +14,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'mileszs/ack.vim'
+Plug 'rking/ag.vim'
 Plug 'scrooloose/syntastic'
 Plug 'Lokaltog/vim-powerline', {'branch': 'develop'}
 Plug 'tpope/vim-fugitive'
@@ -43,7 +44,7 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'itspriddle/vim-jquery'
 Plug 'tpope/vim-markdown'
 Plug 'timcharper/textile.vim'
-Plug 'vim-scripts/JSON.vim'
+Plug 'elzr/vim-json'
 Plug 'uarun/vim-protobuf'
 Plug 'fatih/vim-go'
 Plug 'vim-scripts/vim-terraform'
@@ -490,3 +491,9 @@ nmap <silent> <Leader>h :FSHere<CR>
 
 let g:go_bin_path = $GOPATH . '/bin'
 let g:go_fmt_command = 'goimports'
+
+""""""""""""""""""""""""""""""""""""""
+" vim-json
+""""""""""""""""""""""""""""""""""""""
+
+let g:vim_json_syntax_conceal = 0
