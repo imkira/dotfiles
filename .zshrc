@@ -14,6 +14,9 @@ source $ZSH/oh-my-zsh.sh
 # completely disable autocorrection
 unsetopt correct_all
 
+# expand for flag=
+setopt MAGIC_EQUAL_SUBST
+
 ZSH_FILES=$HOME/.zsh
 
 # preconfiguration
