@@ -497,3 +497,8 @@ let g:go_fmt_command = 'goimports'
 """"""""""""""""""""""""""""""""""""""
 
 let g:vim_json_syntax_conceal = 0
+
+""""""""""""""""""""""""""""""""""""""
+" vim diff
+""""""""""""""""""""""""""""""""""""""
+au FilterWritePre * if &diff | colorscheme diff | endif
