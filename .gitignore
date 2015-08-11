@@ -12,7 +12,10 @@
 !/.slate
 !/.tmux.conf
 !/.vimrc
-!/.vim/bundle/vundle
+!/.vim
+/.vim/*
+!/.vim/colors
+!/.vim/ftplugin
 !/.vim/UltiSnips
 !/.zsh
 !/.zshrc
