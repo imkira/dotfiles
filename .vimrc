@@ -46,7 +46,8 @@ Plug 'tpope/vim-markdown'
 Plug 'timcharper/textile.vim'
 Plug 'elzr/vim-json'
 Plug 'uarun/vim-protobuf'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'vim-scripts/vim-terraform'
 
 call plug#end()
@@ -81,7 +82,6 @@ set hidden
 
 " remove all gui crap and enable support for mouse
 set mouse=a
-set guioptions=a
 set ttymouse=xterm2
 
 " use fast terminal connection
@@ -98,6 +98,9 @@ set wrap linebreak nolist
 
 " keep this much number of commands in history
 set history=1000
+
+" use system clipboard
+set clipboard=unnamed
 
 " backups
 if isdirectory($HOME . '/.vim/backup') == 0
@@ -201,6 +204,9 @@ set wildmode=list:longest,full
 " ignore certain patterns while completing paths
 set wildignore=*.bak,*.swp,*.o,*.class,*.meta
 
+" don’t update screen during macro and script execution
+set lazyredraw
+
 """"""""""""""""""""""""""""""""""""""
 " VISUAL HELPERS
 """"""""""""""""""""""""""""""""""""""
@@ -286,7 +292,6 @@ if has('gui_running')
   if has('gui_macvim')
     set transparency=02
     set antialias
-    set fu
   end
 
   set lines=9999
@@ -308,6 +313,10 @@ set completeopt-=preview
 """"""""""""""""""""""""""""""""""""""
 " SPACES/TABS/INDENTATION
 """"""""""""""""""""""""""""""""""""""
+
+" show tabs
+set list
+set listchars=tab:▸\
 
 " indent to 2 spaces
 set tabstop=2

@@ -2,7 +2,11 @@ local user='%{$fg_bold[red]%}[%{$fg_bold[white]%}%n@%{$fg_bold[white]%}%m%{$fg_b
 local pwd='%{$fg_bold[yellow]%}%~%{$reset_color%}'
 local repo='%{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}'
 
-PROMPT="${user} ${pwd} ${repo}%{$fg_bold[white]%}$%{$reset_color%} "
+if [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; then
+  PROMPT="${user} ${pwd} ${repo}%{$fg_bold[white]%}$%{$reset_color%} "
+else
+  PROMPT="${pwd} ${repo}%{$fg_bold[white]%}$%{$reset_color%} "
+fi
 
 ZSH_THEME_GIT_PROMPT_PREFIX="git(%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "

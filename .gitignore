@@ -16,7 +16,9 @@
 /.vim/*
 !/.vim/colors
 !/.vim/ftplugin
+/.vim/ftplugin/go
 !/.vim/UltiSnips
 !/.zsh
 !/.zshrc
+/.zsh/**/*.antigen-compat
 /.zsh/private

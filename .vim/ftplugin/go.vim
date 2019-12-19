@@ -11,3 +11,4 @@ map <buffer> <localleader>gd <Plug>(go-def)
 map <buffer> <localleader>ds <Plug>(go-def-split)
 map <buffer> <localleader>dv <Plug>(go-def-vertical)
 map <buffer> <localleader>dt <Plug>(go-def-tab)
+set nolist
