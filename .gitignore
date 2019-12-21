@@ -5,6 +5,10 @@
 !/.gitignore
 !/.gitconfig
 !/.gitmodules
+!/.config
+/.config/*
+!/.config/alacritty
+!/.config/alacritty/alacritty.yml
 !/.curlrc
 !/.irbrc
 !/.oh-my-zsh
