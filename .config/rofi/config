@@ -1,0 +1,7 @@
+rofi.modi: run,window
+rofi.lines: 10
+rofi.columns: 1
+rofi.width: 20
+rofi.show-icons: true
+rofi.sidebar-mode: true
+rofi.theme: solarized_alternate

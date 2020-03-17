@@ -48,6 +48,7 @@ Plug 'elzr/vim-json'
 Plug 'uarun/vim-protobuf'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+Plug 'rust-lang/rust.vim'
 Plug 'vim-scripts/vim-terraform'
 
 call plug#end()
@@ -411,8 +412,7 @@ map <Leader># <plug>NERDCommenterToggle
 " syntastic
 """"""""""""""""""""""""""""""""""""""
 
-" disable checkers for go
-let g:syntastic_go_checkers = []
+let g:syntastic_aggregate_errors = 1
 
 """"""""""""""""""""""""""""""""""""""
 " YouCompleteMe
@@ -474,7 +474,7 @@ let g:ctags_statusline=1
 " TagBar
 """"""""""""""""""""""""""""""""""""""
 
-let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+let g:tagbar_ctags_bin = 'ctags'
 let g:tagbar_width = 40
 let g:tagbar_autoclose = 0
 let g:tagbar_autofocus = 0
@@ -495,10 +495,19 @@ nmap <silent> <Leader>h :FSHere<CR>
 
 """"""""""""""""""""""""""""""""""""""
 " vim-go
-""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""let g:rustfmt_autosave = 1
 
 let g:go_bin_path = $GOPATH . '/bin'
 let g:go_fmt_command = 'goimports'
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+
+""""""""""""""""""""""""""""""""""""""
+" vim-rust
+""""""""""""""""""""""""""""""""""""""
+
+let g:rustfmt_autosave = 1
+let g:rustfmt_fail_silently = 0
 
 """"""""""""""""""""""""""""""""""""""
 " vim-json

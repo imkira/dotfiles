@@ -1,0 +1,209 @@
+[colors]
+background = #ee000000
+foreground = #ffffff
+primary = #ffffff
+secondary = #e60053
+alert = #bd2c40
+
+[bar/mybar]
+locale = en_US.UTF-8
+width = 100%
+height = 32
+offset-x = 0
+offset-y = 0
+radius = 0.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+border-left-size = 10
+border-right-size = 10
+border-top-size = 10
+border-bottom-size = 0
+border-color = #00000000
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = DejaVu Sans Mono:bold:pixelsize=13;1
+font-1 = FontAwesome5Free:style=Solid:size=11;2
+font-2 = FontAwesome:style=Regular:size=11;2
+font-3 = FontAwesome5Free:style=Regular:size=11;2
+font-4 = FontAwesome5Brands:style=Regular:size=11;2
+
+modules-left = i3 cpu memory cputemp gputemp filesystem network pulseaudio
+modules-center = xwindow
+modules-right = date powermenu
+
+tray-position = right
+tray-padding = 2
+
+wm-restack = i3
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:75:...%
+format-background = #0a0a0a
+format-padding = 5
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-default = 
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index% %icon%
+label-focused-background = #dc143c
+label-focused-underline= #dc143c
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index% %icon%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index% %icon%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index% %icon%
+label-urgent-background = #5f5f5f
+label-urgent-padding = 2
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = " "
+format-prefix-foreground = #FFFFFF
+label = %percentage:2%%
+format-padding = 1
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = " "
+format-prefix-foreground = #FFFFFF
+label = %percentage_used%%
+format-padding = 1
+
+[module/cputemp]
+type = internal/temperature
+interval = 1
+thermal-zone = 0
+warn-temperature = 60
+format = <ramp> <label>
+format-warn = <ramp> <label-warn>
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-background = #dc143c
+label-warn-padding = 1
+ramp-0 = 
+ramp-1 = 
+ramp-foreground = #FFFFFF
+format-padding = 1
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp1_input
+
+[module/gputemp]
+type = internal/temperature
+interval = 1
+thermal-zone = 0
+warn-temperature = 60
+format = <ramp> <label>
+format-warn = <ramp> <label-warn>
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-background = #dc143c
+label-warn-padding = 1
+ramp-0 = 
+ramp-1 = 
+ramp-foreground = #FFFFFF
+format-padding = 1
+hwmon-path = /sys/devices/pci0000:00/0000:00:03.1/0000:08:00.0/hwmon/hwmon0/temp1_input
+
+[module/filesystem]
+type = internal/fs
+mount-0 = /
+interval = 10
+fixed-values = true
+label-mounted =  %mountpoint%: %percentage_used%%
+label-unmounted =  %mountpoint%: not mounted
+spacing = 4
+
+[module/network]
+type = internal/network
+interface = en0
+interval = 3.0
+format-connected = <label-connected>
+label-connected =   %upspeed% %downspeed%
+format-disconnected =   down
+format-connected-padding = 0
+
+[module/pulseaudio]
+type = internal/pulseaudio
+use-ui-max = true
+interval = 1
+format-volume = <ramp-volume> <label-volume>
+format-volume-foreground = #FFFFFF
+label-muted = 
+label-muted-foreground = #FFFFFF
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+[module/date]
+type = internal/date
+interval = 1
+date =%Y/%m/%d
+date-alt =%A, %d %B %Y
+time = %H:%M:%S
+time-alt = %H:%M:%S
+format-prefix = " "
+format-prefix-foreground = #FFFFFF
+format-background = #dc143c
+format-padding = 2
+label = %date% %time%
+
+[module/powermenu]
+format-offset = -25
+type = custom/menu
+expand-right = false
+format-spacing = 2
+format-padding = 2
+label-open = 
+label-open-foreground = ${colors.secondary}
+label-close = 
+label-close-foreground = ${colors.secondary}
+label-separator =
+label-separator-foreground = ${colors.foreground}
+menu-0-0 =  Logout
+menu-0-0-exec = i3-msg exit
+
+; vim:ft=dosini

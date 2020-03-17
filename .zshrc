@@ -1,9 +1,6 @@
-source /usr/local/share/antigen/antigen.zsh
-
 ZSH_FILES=$HOME/.zsh
 
-# for zsh-notify
-TERM_PROGRAM='Apple_Terminal'
+source $ZSH_FILES/antigen.zsh
 
 antigen use oh-my-zsh
 
@@ -14,7 +11,6 @@ antigen bundles <<EOBUNDLES
   zsh-users/zsh-syntax-highlighting
   zdharma/history-search-multi-word
   kutsan/zsh-system-clipboard
-  marzocchi/zsh-notify
   z
   history-substring-search
   colored-man-pages
@@ -35,6 +31,14 @@ bindkey -v
 
 # configure zsh-system-clipboard
 typeset -g ZSH_SYSTEM_CLIPBOARD_TMUX_SUPPORT='true'
+typeset -g ZSH_SYSTEM_CLIPBOARD_SELECTION='PRIMARY'
+
+# color for zsh-autosuggestions
+if [ "${TERM}" = "linux" ]; then
+  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#333333"
+else
+  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#777777"
+fi
 
 # configure history-search-multi-word
 bindkey "^r" history-search-multi-word

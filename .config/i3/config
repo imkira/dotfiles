@@ -1,0 +1,158 @@
+# i3 config file (v4)
+
+# Mod Key
+set $mod Mod4
+
+# Window title
+font pango:DejaVu Sans Mono 12
+
+# Hide titlebar
+new_window none
+
+# i3-gaps
+gaps inner 10
+
+# Start terminal
+bindsym $mod+Return exec alacritty --config-file ~/.config/alacritty/linux.yml
+
+# Start rofi in run mode
+bindsym $mod+space exec --no-startup-id rofi -show run
+
+# Start rofi in window mode
+bindsym $mod+Tab exec --no-startup-id rofi -show window -kb-accept-entry "!Return" -kb-row-down "Super_L-Tab" -kb-cancel "Escape"
+
+# F10 for toggle mute, F11 for volume down, F12 for volume up
+bindsym $mod+F10 exec --no-startup-id amixer -q -D pulse sset Master toggle
+bindsym $mod+F11 exec --no-startup-id amixer -q -D pulse sset Master 5%- unmute
+bindsym $mod+F12 exec --no-startup-id amixer -q -D pulse sset Master 5%+ unmute
+
+# Use Mod Key + Mouse to drag windows
+floating_modifier $mod
+
+# toggle tiling / floating
+bindsym $mod+Shift+space "floating toggle; border pixel 2"
+
+# Don't follow mouse focus
+focus_follows_mouse no
+
+# Kill focused window
+bindsym $mod+w kill
+
+# Focus the parent container
+bindsym $mod+a focus parent
+
+# Focus on the child container
+bindsym $mod+c focus child
+
+# Change focused window
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+h focus left
+
+# Alternatively, use cursor keys
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Change container layout to split in horizontal/vertical orientation
+bindsym $mod+bar layout splith
+bindsym $mod+minus layout splitv
+
+# Make current window a split container for horizontal/vertical orientation
+bindsym $mod+Shift+bar split h
+bindsym $mod+Shift+minus split v
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Workspace names
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Reload configuration file
+bindsym $mod+Shift+c reload
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# Enter resize window mode
+bindsym $mod+r mode "resize"
+
+# Resize window (you can also use the mouse for that)
+mode "resize" {
+  # Resize
+  bindsym h resize shrink width 2 px or 2 ppt
+  bindsym j resize grow height 2 px or 2 ppt
+  bindsym k resize shrink height 2 px or 2 ppt
+  bindsym l resize grow width 2 px or 2 ppt
+
+  # Same bindings, but for the arrow keys
+  bindsym Left resize shrink width 2 px or 2 ppt
+  bindsym Down resize grow height 2 px or 2 ppt
+  bindsym Up resize shrink height 2 px or 2 ppt
+  bindsym Right resize grow width 2 px or 2 ppt
+
+  # Back to normal: Enter or Escape or $mod+r
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "default"
+}
+
+# Defining colors
+set $bg      #000000
+set $fg      #f8f8f2
+set $comment #586e75
+
+# Set some nice colors      border   background text     indicator
+client.focused              $comment $comment   $fg      $comment
+client.unfocused            $bg      $bg        $comment $comment
+client.focused_inactive     $bg      $bg        $comment $comment
+client.urgent               $bg      $bg        $fg      $fg
+client.placeholder          $bg      $bg        $comment $comment
+
+# Open applications on specific workspaces
+assign [class="firefox"] $ws2
+for_window [title="floating"] floating enable
+
+# Set wallpaper
+exec_always --no-startup-id ~/.scripts/set-wallpaper.sh
+
+# Execute polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+# Compositor for window transparency
+exec --no-startup-id picom --config ~/.config/picom/picom.conf
