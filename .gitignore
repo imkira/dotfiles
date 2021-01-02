@@ -16,6 +16,7 @@
 !/.config/polybar
 !/.config/pulse
 /.config/pulse/cookie
+!/.config/tmux
 !/.curlrc
 !/.irbrc
 !/.oh-my-zsh
