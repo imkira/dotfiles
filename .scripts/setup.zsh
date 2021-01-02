@@ -34,7 +34,7 @@ function install_pkg() {
 function install_linux_pkg() {
   local pkg=$1
   if is_linux; then
-    if [[ pkg == *.git ]]; then
+    if [[ "${pkg}" == *.git ]]; then
       install_aur_pkg "https://aur.archlinux.org/${pkg}"
     elif [ -z "${force}" ] && is_linux_pkg_installed ${pkg}; then
       echo "${pkg} is already installed, skipping..."
@@ -117,9 +117,10 @@ function download_zip_extract() {
 ###############################################################
 
 install_osx_pkg coreutils
+install_pkg unzip
 install_pkg ack
-install_pkg ag
-install_pkg rg
+install_pkg the_silver_searcher ag
+install_pkg ripgrep rg
 install_pkg fzf
 install_pkg jq
 install_pkg fasd
@@ -137,12 +138,13 @@ install_pkg pyenv
 install_pkg rbenv.git rbenv
 install_pkg ruby-build.git ruby-build
 install_pkg nodenv.git nodenv
+install_pkg nodenv-node-build.git node-build
 
 install_pkg gradle
 install_osx_pkg gradle-completion
 
 pyenv install -s "${PYTHON3_VERSION}"
-pyenv install -s "${PYTHON3_VERSION}"
+pyenv install -s "${PYTHON2_VERSION}"
 pyenv global "${PYTHON3_VERSION}" "${PYTHON2_VERSION}"
 eval "$(pyenv init -)"
 pip install --quiet pipx
@@ -158,6 +160,7 @@ nodenv install -s "${NODE_VERSION}"
 nodenv global "${NODE_VERSION}"
 eval "$(nodenv init -)"
 npm install -g --silent yarn
+nodenv rehash
 yarn global --silent add neovim
 
 install_pkg aws-cli awscli
@@ -167,7 +170,7 @@ install_osx_pkg aws/tap/aws-sam-cli
 # language servers, linters, formatters, fixers
 ###############################################################
 
-install_pkg golangci-lint golangci/tap/golangci-lint
+install_pkg golangci-lint.git golangci/tap/golangci-lint
 install_pkg prettier
 install_pkg yamllint
 install_pkg shfmt
@@ -177,7 +180,7 @@ install_pkg mypy
 pipx install isort
 pipx install pylint
 install_pkg eslint
-install_pkg shellcheck
+install_pkg shellcheck-bin.git shellcheck
 install_pkg pandoc
 
 download_zip_extract "https://github.com/fwcd/kotlin-language-server/releases/download/${KOTLIN_LANGUAGE_SERVER_VERSION}/server.zip" ~/.local/share/kotlin-language-server
@@ -186,18 +189,16 @@ download_zip_extract "https://github.com/fwcd/kotlin-language-server/releases/do
 # zsh
 ###############################################################
 
+# for zsh-system-clipboard
+install_linux_pkg xsel
+
 zshrc="${HOME}/.zshrc"
 zplugdir="${HOME}/.zplug"
 
 if [ ! -d "${zplugdir}" ]; then
   git clone https://github.com/zplug/zplug "${zplugdir}"
+  /usr/bin/env zsh -c "source ${zshrc}; zplug install; exit"
 fi
-
-# for zsh-system-clipboard
-install_linux_pkg xsel
-
-# open shell so antigen installs plugins
-/usr/bin/env zsh -c "source ${zshrc}; exit"
 
 ###############################################################
 # tmux
@@ -205,9 +206,10 @@ install_linux_pkg xsel
 
 install_osx_pkg reattach-to-user-namespace
 pip install powerline-status
-install_linux_pkg powerline-fonts
+install_linux_pkg powerline-fonts.git
 install_pkg tmux
-tmux -c "powerline-config tmux setup"
+tmux new-session "powerline-config tmux setup"
+tmux new-session "~/.tmux/plugins/tpm/bin/install_plugins"
 
 ###############################################################
 # vim
@@ -233,7 +235,6 @@ if is_linux; then
   install_pkg terminus-font
   install_pkg ttf-font-awesome
   install_pkg ttf-dejavu
-  install_pkg ttf-hack
   install_pkg otf-ipafont
   install_pkg wqy-microhei
 fi
