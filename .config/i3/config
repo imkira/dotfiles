@@ -13,7 +13,7 @@ new_window none
 gaps inner 10
 
 # Start terminal
-bindsym $mod+Return exec alacritty --config-file ~/.config/alacritty/linux.yml
+bindsym $mod+Return exec --no-startup-id alacritty --config-file ~/.config/alacritty/linux.yml
 
 # Start rofi in run mode
 bindsym $mod+space exec --no-startup-id rofi -show run
