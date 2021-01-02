@@ -1,4 +1,4 @@
-# brew install highlight
+#!/usr/bin/env zsh
 
 export LESSOPEN="| src-hilite-lesspipe.sh %s"
 export LESS="-C -R "

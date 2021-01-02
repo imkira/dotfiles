@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 if [ -d /usr/local/Cellar/android-sdk ]; then
   export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/$(ls -1 /usr/local/Cellar/android-sdk/ | sort -r | head -n 1)
   export ANDROID_HOME=$ANDROID_SDK_ROOT

@@ -1,30 +1,22 @@
-ZSH_FILES=$HOME/.zsh
+#!/usr/bin/env zsh
 
-source $ZSH_FILES/antigen.zsh
+ZSH_FILES="$HOME/.zsh"
 
-antigen use oh-my-zsh
-
-# Load bundles
-antigen bundles <<EOBUNDLES
-  zsh-users/zsh-completions
-  zsh-users/zsh-autosuggestions
-  zsh-users/zsh-syntax-highlighting
-  zdharma/history-search-multi-word
-  kutsan/zsh-system-clipboard
-  z
-  history-substring-search
-  colored-man-pages
-  docker
-  git
-  fasd
-  $ZSH_FILES/custom/themes imkira.zsh-theme --no-local-clone
-EOBUNDLES
-
-# Load the theme.
-antigen theme imkira
-
-# Tell Antigen that you're done.
-antigen apply
+source ~/.zplug/init.zsh
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "kutsan/zsh-system-clipboard"
+zplug "plugins/fzf", from:oh-my-zsh
+zplug "plugins/z", from:oh-my-zsh
+zplug "plugins/history-substring-search", from:oh-my-zsh
+zplug "plugins/colored-man-pages", from:oh-my-zsh
+zplug "plugins/docker", from:oh-my-zsh
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/fasd", from:oh-my-zsh
+zplug "plugins/direnv", from:oh-my-zsh
+zplug "themes/agnoster", from:oh-my-zsh
+zplug load
 
 # enable vi-mode
 bindkey -v
@@ -40,10 +32,13 @@ else
   export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#777777"
 fi
 
-# configure history-search-multi-word
-bindkey "^r" history-search-multi-word
-zstyle ":history-search-multi-word" page-size "4"
+# save history
+HISTSIZE=100000
+SAVEHIST=100000
+setopt appendhistory
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
 
 # Load configuration files.
-if [[ -d $ZSH_FILES/init ]]; then for config_file ($ZSH_FILES/init/*.zsh) source $config_file; fi
-if [[ -d $ZSH_FILES/private ]]; then for config_file ($ZSH_FILES/private/*.zsh) source $config_file; fi
+if [[ -d "$ZSH_FILES/init" ]]; then for config_file in "$ZSH_FILES"/init/*.zsh; do source "$config_file"; done; fi
+if [[ -d "$ZSH_FILES/private" ]]; then for config_file in "$ZSH_FILES"/private/*.zsh; do source "$config_file"; done; fi
