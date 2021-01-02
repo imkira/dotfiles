@@ -1,0 +1,15 @@
+{
+  "suggest.snippetIndicator": "",
+  "diagnostic.checkCurrentLine": true,
+  "go.enable": true,
+  "java.completion.enabled": true,
+  "java.import.gradle.enabled": true,
+  "java.import.gradle.enabled": true,
+  "languageserver": {
+    "kotlin": {
+      "command": "~/.local/share/kotlin-language-server/server/bin/kotlin-language-server",
+      "filetypes": ["kotlin"]
+    }
+  },
+  "python.linting.pylintPath": "~/.local/bin/pylint"
+}

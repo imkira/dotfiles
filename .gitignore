@@ -10,6 +10,8 @@
 !/.config/alacritty
 !/.config/alacritty/alacritty.yml
 !/.config/i3
+!/.config/nvim
+.config/nvim/.*
 !/.config/rofi
 !/.config/polybar
 !/.config/pulse
